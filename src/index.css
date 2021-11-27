@@ -1,0 +1,60 @@
+body {
+  margin: 20px 38px;
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: 80px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  letter-spacing: -4px;
+}
+h2 {
+  font-size: 40px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.StatusBar {
+  font-size: 24px;
+}
+
+.PartsRow {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.PartsRow svg {
+  flex-shrink: 0;
+}
+
+.PartsRow .label {
+  font-size: 12px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+table {
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+td.labeltitle {
+  font-weight: 700;
+  width: 100px;
+}

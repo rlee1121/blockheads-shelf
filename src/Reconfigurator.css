@@ -1,0 +1,77 @@
+.reconfigurator {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reconfigurator .parts {
+  display: flex;
+  flex-direction: column;
+  font-size: 0;
+  margin: 0 32px;
+}
+
+.reconfigurator .parts svg {
+  width: calc(500px / 6) !important;
+  height: calc(500px / 6) !important;
+}
+
+.swap-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.swap-button {
+  width: calc(500px / 6) !important;
+  height: calc(500px / 6) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.reconfigurator-preview {
+  width: 500px;
+  height: 500px;
+}
+
+.reconfigurator .section {
+  width: calc(50% - 64px);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.reconfigurator .section.flip {
+  justify-content: start;
+}
+
+.reconfigurator-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-swap-button {
+  background-color: #00af4d;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 24px;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  border: 0;
+  width: 1430px;
+  font-size: 24px;
+}
+
+.submit-swap-button:disabled {
+    background-color: gray;
+}

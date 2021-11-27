@@ -1,0 +1,10 @@
+.title-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 80px;
+    font-weight: bold;
+    letter-spacing: -4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

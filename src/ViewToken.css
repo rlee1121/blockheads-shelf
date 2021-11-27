@@ -1,0 +1,35 @@
+.view-token {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.token-info-container {
+    margin-right: 32px;
+}
+
+.parts-container {
+    width: 500px;
+    flex-shrink: 0;
+}
+
+h1.blockhead-id {
+    margin-top: 20px;
+    line-height: 0.9em;
+}
+
+h2 {
+    font-size: 40px;
+    margin-top: 0px;
+}
+
+.sub-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sub-buttons div {
+    cursor: pointer;
+}

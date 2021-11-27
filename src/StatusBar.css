@@ -1,0 +1,17 @@
+.status-bar {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #00AF4D;
+}
+
+.status-bar .label {
+    color: black;
+}
+
+.status-bar.disconnected {
+    color: #808080;
+}

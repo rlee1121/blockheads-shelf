@@ -1,0 +1,19 @@
+.part-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+h1.included {
+    margin-bottom: 86px;
+    margin-top: 20px;
+    line-height: 0.9em;
+}
+
+.part-label {
+    font-size: 13px;
+    padding-left: 4px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    max-width: 130px;
+}
