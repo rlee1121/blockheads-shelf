@@ -1,7 +1,7 @@
 import { PartInfo, Parts } from "./types";
 import "./PartsDisplay.css"
 
-function PartTile(part : PartInfo, size: string = "150") {
+export function PartTile({ part, size = "150"}: {part : PartInfo, size?: string}) {
     return <div className="part">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,15 +18,15 @@ function PartTile(part : PartInfo, size: string = "150") {
 export default function PartsDisplay({ parts }: { parts: Parts }) {
   return (
     <div>
-      <h1 className="included">Parts Included</h1> 
+      <h1 className="included">Parts Included</h1>
       <div className="part-grid">
-        {PartTile(parts.background)}
-        {PartTile(parts.body)}
-        {PartTile(parts.arms)}
-        {PartTile(parts.head)}
-        {PartTile(parts.face)}
-        {PartTile(parts.headwear)}
-        
+        <PartTile part={parts.background} />
+        <PartTile part={parts.body} />
+        <PartTile part={parts.arms} />
+        <PartTile part={parts.head} />
+        <PartTile part={parts.face} />
+        <PartTile part={parts.headwear} />
+
       </div>
     </div>
   );

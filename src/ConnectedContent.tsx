@@ -1,10 +1,16 @@
+import GrailBuilder from "./GrailBuilder";
 import Collection from "./Collection";
 import { Route, Switch } from "react-router";
 import ViewToken from "./ViewToken";
 import Reconfigurator from "./Reconfigurator";
+
 export default function ConnectedContent() {
   return (
     <Switch>
+      <Route path="/build-a-grail">
+        <GrailBuilder />
+      </Route>
+
       <Route path="/view/:tokenId">
         <ViewToken />
       </Route>
