@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { PartTile } from "./PartsDisplay";
 import useBlockheadsList, { LoadingState } from "./useBlockheadsList";
 import useBlockheadsParts, { partsFields } from "./useBlockheadsParts";
 import './GrailBuilder.css';
 import placeholderImage from './grail-placeholder.png';
+import GrailBuilderPartTile from "./GrailBuilderPartTile";
 
 interface GrailState {
   bg: number | null;
@@ -73,29 +73,20 @@ export default function GrailBuilder() {
           <div key={token.tokenId} className="grail-builder__token">
             {!partsMap[token.tokenId]
               ? <h3>Loading parts for Blockhead #{token.tokenId}...</h3>
-              : <h3>#{token.tokenId} {token.attributes?.["Profession"]}</h3>
+              : <h3>#{token.tokenId}</h3>
             }
 
             {partsMap[token.tokenId] && (
               <div className="grail-builder__parts">
-                {partsFields.map(part => {
-                  const isSelected = grailState[part] === token.tokenId;
-                  return (
-                    <div
-                      className={`grail-builder__part ${isSelected ? 'grail-builder__part--selected' : ''}`}
-                      key={`${token.tokenId}-${part}`}
-                      onClick={() => setGrailState({ ...grailState, [part]: token.tokenId })}
-                    >
-                      <PartTile
-                        part={{
-                          svg: partsMap[token.tokenId][part]?.data ?? '',
-                          label: partsMap[token.tokenId][part]?.label ?? ''
-                        }}
-                        size="100"
-                      />
-                    </div>
-                  )
-                })}
+                {partsFields.map(part => (
+                  <GrailBuilderPartTile
+                    key={`${token.tokenId}-${part}`}
+                    isSelected={grailState[part] === token.tokenId}
+                    label={partsMap[token.tokenId][part]?.label ?? ''}
+                    onClick={() => setGrailState({ ...grailState, [part]: token.tokenId })}
+                    svgData={partsMap[token.tokenId][part]?.data ?? ''}
+                  />
+                ))}
               </div>
             )}
           </div>
