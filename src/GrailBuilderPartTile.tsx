@@ -1,4 +1,3 @@
-import React from 'react';
 import { PartTile } from './PartsDisplay';
 
 export default function GrailBuilderPartTile({
@@ -19,7 +18,7 @@ export default function GrailBuilderPartTile({
     >
       <PartTile
         part={{ svg: svgData, label }}
-        size="100"
+        size="75"
       />
     </div>
   )

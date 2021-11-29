@@ -13,6 +13,7 @@ export const partsFields = [
   "headwear"
 ] as const;
 
+export type BlockheadPartType = typeof partsFields[number];
 interface PartRenderData {
   svg: string;
   label: string;

@@ -2,17 +2,9 @@ import { useMemo, useState } from "react";
 import useBlockheadsList, { LoadingState } from "./useBlockheadsList";
 import useBlockheadsParts, { partsFields } from "./useBlockheadsParts";
 import './GrailBuilder.css';
+import GrailBuilderSwapFlow, { GrailState } from "./GrailBuilderSwapFlow";
 import placeholderImage from './grail-placeholder.png';
 import GrailBuilderPartTile from "./GrailBuilderPartTile";
-
-interface GrailState {
-  background: number | null;
-  body: number | null;
-  arms: number | null;
-  head: number | null;
-  face: number | null;
-  headwear: number | null;
-}
 
 function GrailPreview({ svgData }: { svgData: string }) {
   return (
@@ -46,6 +38,16 @@ export default function GrailBuilder() {
   });
   const { loadingState, tokens } = useBlockheadsList();
   const partsMap = useBlockheadsParts(tokens);
+  const [showSwaps, setShowSwaps] = useState(false);
+
+  const canSubmit = useMemo(() => (
+    grailState.background &&
+    grailState.body &&
+    grailState.arms &&
+    grailState.head &&
+    grailState.face &&
+    grailState.headwear
+  ), [grailState]);
 
   const grailPreviewSvg = useMemo(() => {
     return partsFields.map(field => {
@@ -54,6 +56,9 @@ export default function GrailBuilder() {
     }).join('');
   }, [grailState, partsMap]);
 
+  const reviewSwaps = () => {
+    setShowSwaps(true);
+  };
 
   if (loadingState !== LoadingState.LOADED) {
     return <div>loading...</div>
@@ -61,15 +66,10 @@ export default function GrailBuilder() {
 
   return (
     <div className="grail-builder">
-      <div className="grail-builder__preview">
-        <div className="grail-builder__preview-container">
-          <GrailPreview svgData={grailPreviewSvg} />
-        </div>
-      </div>
-
-
       <div className="grail-builder__tokens">
-        {tokens.map(token => (
+        {tokens.map(token => {
+          console.log(token)
+          return (
           <div key={token.tokenId} className="grail-builder__token">
             {!partsMap[token.tokenId]
               ? <h3>Loading parts for Blockhead #{token.tokenId}...</h3>
@@ -90,8 +90,33 @@ export default function GrailBuilder() {
               </div>
             )}
           </div>
-        ))}
+        )})}
       </div>
+
+      <div className="grail-builder__preview">
+        <div className="grail-builder__preview-container">
+          <GrailPreview svgData={grailPreviewSvg} />
+
+          <button
+            className="connect-button"
+            disabled={!canSubmit}
+            onClick={reviewSwaps}
+          >
+            {canSubmit ? 'Review Swaps' : 'Finish building your Blockhead'}
+          </button>
+        </div>
+      </div>
+
+      {showSwaps && (
+        <div className="grail-builder__swaps-bg">
+          <div className="grail-builder__swaps-modal">
+            <GrailBuilderSwapFlow
+              grail={grailState}
+              tokens={tokens}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
