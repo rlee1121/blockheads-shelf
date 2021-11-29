@@ -6,7 +6,7 @@ import placeholderImage from './grail-placeholder.png';
 import GrailBuilderPartTile from "./GrailBuilderPartTile";
 
 interface GrailState {
-  bg: number | null;
+  background: number | null;
   body: number | null;
   arms: number | null;
   head: number | null;
@@ -37,7 +37,7 @@ function GrailPreview({ svgData }: { svgData: string }) {
 
 export default function GrailBuilder() {
   const [grailState, setGrailState] = useState<GrailState>({
-    bg: null,
+    background: null,
     body: null,
     arms: null,
     head: null,
@@ -50,7 +50,7 @@ export default function GrailBuilder() {
   const grailPreviewSvg = useMemo(() => {
     return partsFields.map(field => {
       const activeTokenIdForPart = grailState[field];
-      return partsMap[activeTokenIdForPart ?? -1]?.[field]?.data ?? '';
+      return partsMap[activeTokenIdForPart ?? -1]?.[field].svg ?? '';
     }).join('');
   }, [grailState, partsMap]);
 
@@ -82,9 +82,9 @@ export default function GrailBuilder() {
                   <GrailBuilderPartTile
                     key={`${token.tokenId}-${part}`}
                     isSelected={grailState[part] === token.tokenId}
-                    label={partsMap[token.tokenId][part]?.label ?? ''}
+                    label={partsMap[token.tokenId][part].label ?? ''}
                     onClick={() => setGrailState({ ...grailState, [part]: token.tokenId })}
-                    svgData={partsMap[token.tokenId][part]?.data ?? ''}
+                    svgData={partsMap[token.tokenId][part].svg ?? ''}
                   />
                 ))}
               </div>

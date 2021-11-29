@@ -1,8 +1,8 @@
-import * as ethers from "ethers";
 import { useEffect, useState } from "react";
 import { Blockhead } from "./types";
 import { useEthers } from "@usedapp/core";
 import useBlockheadsContract from "./useBlockheadsContract";
+import { fetchBlockhead } from "./BlockheadsUtil";
 
 export enum LoadingState {
   FETCHING_BALANCE,
@@ -30,20 +30,13 @@ export default function useBlockheadsList(address?: string) {
       setLoadingState(LoadingState.GETTING_TOKEN_IDS);
 
       const promises = [];
-      async function fetchTokenAtIndex(i: number, contract: ethers.Contract) : Promise<Blockhead>{
-        const id = await contract.tokenOfOwnerByIndex(targetAccount, i);
-        const tokenURI = await contract.tokenURI(id);
-        return {
-          tokenId: id.toNumber(),
-          tokenURI
-        }
-      }
+
       for (var i = 0; i < balance.toNumber(); i++) {
-        promises.push(fetchTokenAtIndex(i, contract));
+        const id = await contract.tokenOfOwnerByIndex(targetAccount, i);
+        promises.push(fetchBlockhead(id.toNumber(), contract));
       }
 
       const blockheads = await Promise.all(promises);
-      console.log("Tokens", blockheads);
       setTokens(blockheads);
       setLoadingState(LoadingState.LOADED);
     }
