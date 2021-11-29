@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { PartTile } from "./PartsDisplay";
 import useBlockheadsList, { LoadingState } from "./useBlockheadsList";
 import useBlockheadsParts, { partsFields } from "./useBlockheadsParts";
 import './GrailBuilder.css';
+import placeholderImage from './grail-placeholder.png';
 
 interface GrailState {
   bg: number | null;
@@ -14,15 +15,24 @@ interface GrailState {
 }
 
 function GrailPreview({ svgData }: { svgData: string }) {
-  return <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="500"
-    height="500"
-    viewBox="0 0 25 25"
-    dangerouslySetInnerHTML={{
-      __html: svgData
-    }}
-  />
+  return (
+    <div
+      style={{
+        width: 500,
+        height: 500,
+        backgroundImage: `url(${placeholderImage})`,
+        backgroundSize: 'cover',
+      }}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="500"
+        height="500"
+        viewBox="0 0 25 25"
+        dangerouslySetInnerHTML={{ __html: svgData }}
+      />
+    </div>
+  );
 }
 
 export default function GrailBuilder() {
@@ -37,6 +47,14 @@ export default function GrailBuilder() {
   const { loadingState, tokens } = useBlockheadsList();
   const partsMap = useBlockheadsParts(tokens);
 
+  const grailPreviewSvg = useMemo(() => {
+    return partsFields.map(field => {
+      const activeTokenIdForPart = grailState[field];
+      return partsMap[activeTokenIdForPart ?? -1]?.[field]?.data ?? '';
+    }).join('');
+  }, [grailState, partsMap]);
+
+
   if (loadingState !== LoadingState.LOADED) {
     return <div>loading...</div>
   }
@@ -44,20 +62,19 @@ export default function GrailBuilder() {
   return (
     <div className="grail-builder">
       <div className="grail-builder__preview">
-      <GrailPreview
-        svgData={partsFields.map(field => {
-          const activeTokenIdForPart = grailState[field];
-          return partsMap[activeTokenIdForPart ?? -1]?.[field]?.data ?? '';
-        }).join('')}
-      />
+        <div className="grail-builder__preview-container">
+          <GrailPreview svgData={grailPreviewSvg} />
+        </div>
       </div>
+
 
       <div className="grail-builder__tokens">
         {tokens.map(token => (
           <div key={token.tokenId} className="grail-builder__token">
-            <h3>{token.tokenId}</h3>
-
-            {!partsMap[token.tokenId] && <div>loading...</div>}
+            {!partsMap[token.tokenId]
+              ? <h3>Loading parts for Blockhead #{token.tokenId}...</h3>
+              : <h3>#{token.tokenId} {token.attributes?.["Profession"]}</h3>
+            }
 
             {partsMap[token.tokenId] && (
               <div className="grail-builder__parts">

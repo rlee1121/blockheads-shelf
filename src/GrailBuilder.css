@@ -10,7 +10,7 @@
   margin-top: 30px;
 }
 
-.grail-builder__preview svg {
+.grail-builder__preview-container {
   position: sticky;
   top: 100px;
 }
